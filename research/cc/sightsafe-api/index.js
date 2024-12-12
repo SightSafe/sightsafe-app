@@ -1,16 +1,18 @@
-const express = require("express");
-const cors = require("cors");
-const { authenticate } = require("./firebase/middleware");
-const eyeDiseaseRoutes = require("./routes/eyeDiseaseRoutes");
+const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const eyeDiseaseRoutes = require('./routes/eyeDiseaseRoutes');
 
-require("dotenv").config();
+// Load environment variables
+dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/api", authenticate, eyeDiseaseRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Routes
+app.use('/eye-disease', eyeDiseaseRoutes);
+
+// Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
