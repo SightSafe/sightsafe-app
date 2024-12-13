@@ -111,7 +111,7 @@ class ImageUpload : AppCompatActivity() {
                         showToast(successResponse.message.toString())
                         String.format("%s with %.2f%%", successResponse.data.result, successResponse.data.confidenceScore)
                     } else {
-                        showToast("Model is predicted successfully but under threshold.")
+                        showToast("Model confidence score is below threshold")
                         String.format("Please use the correct picture because the confidence score is %.2f%%", successResponse.data.confidenceScore)
                     }
 
@@ -127,6 +127,7 @@ class ImageUpload : AppCompatActivity() {
                     val intent = Intent(this@ImageUpload, ResultActivity::class.java).apply {
                         putExtra("imageUri", currentImageUri.toString())
                         putExtra("resultText", resultText)
+                        putExtra("recommendation", successResponse.data.recommendation)
                     }
                     startActivity(intent)
                 } catch (e: HttpException) {

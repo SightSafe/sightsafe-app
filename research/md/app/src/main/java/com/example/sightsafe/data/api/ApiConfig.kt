@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiConfig {
-    private const val BASE_URL = "https://5f37-103-78-36-254.ngrok-free.app/"
+    private const val BASE_URL = "https://sight-safe.com"
 
     fun getApiService(context: Context): ApiService {
         val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)

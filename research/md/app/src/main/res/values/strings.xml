@@ -32,7 +32,7 @@
     <string name="empty_image_warning">Please upload an image first.</string>
 
 
-    <string name="info">Informasi</string>
+    <string name="info">Information</string>
     <string name="validate_login_success">Login succesfull!</string>
     <string name="or_login_with">Or login with</string>
     <!-- Strings used for fragments for navigation -->

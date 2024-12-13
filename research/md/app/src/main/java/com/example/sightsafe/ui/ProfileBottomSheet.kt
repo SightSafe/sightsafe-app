@@ -35,14 +35,14 @@ class ProfileBottomSheet : BottomSheetDialogFragment() {
 
     private fun showLogoutConfirmationDialog() {
         val builder = AlertDialog.Builder(requireActivity())
-        builder.setMessage("Apakah yakin akan logout?")
-            .setPositiveButton("Iya") { dialog, id ->
+        builder.setMessage("Are you sure you want to log out?")
+            .setPositiveButton("Yes") { dialog, id ->
                 firebaseAuth.signOut()
                 val intent = Intent(activity, WelcomeActivity::class.java)
                 startActivity(intent)
                 activity?.finish() // Close MainActivity to prevent returning to it
             }
-            .setNegativeButton("Tidak") { dialog, id ->
+            .setNegativeButton("No") { dialog, id ->
                 dialog.dismiss()
             }
         builder.create().show()
