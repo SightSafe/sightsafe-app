@@ -10,7 +10,7 @@ from fastapi.responses import JSONResponse
 app = FastAPI()
 
 # Load the trained model
-MODEL_PATH = "Sight SafeV2-Eye Disease-98.02.h5"  # Update this path with your actual model location
+MODEL_PATH = "Sight SafeV2-Eye Disease-84.09.h5"  # Update this path with your actual model location
 if not os.path.exists(MODEL_PATH):
     raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
 
