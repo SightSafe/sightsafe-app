@@ -1,0 +1,7 @@
+node_modules/
+volumes/
+.venv/
+
+SightSafe-EyeDisease.h5
+firebase-config.json
+.env

@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+kombu = ">=5.4.2,<5.5.0"
+firebase-admin = ">=6.6.0,<6.7.0"
+pydantic = ">=2.10.3,<2.11.0"
+tensorflow = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
