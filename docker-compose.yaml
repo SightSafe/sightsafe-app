@@ -1,0 +1,46 @@
+services:
+  # --- INSTANCE ---
+  api:
+    build: ./services/sightsafe-api
+    restart: unless-stopped
+    depends_on:
+      rabbitmq: { condition: service_healthy }
+    environment:
+      - AMQP_URI=amqp://rabbitmq
+    ports:
+      - 5000:5000
+    volumes:
+      - ./mounts/firebase-config.json:/opt/backend/firebase-config.json
+
+  worker:
+    build: ./services/sightsafe-worker
+    restart: unless-stopped
+    environment:
+      - AMQP_URI=amqp://rabbitmq:5672//
+    depends_on:
+      rabbitmq: { condition: service_healthy }
+    volumes:
+      - ./mounts/SightSafe-EyeDisease.h5:/opt/worker/fixtures/SightSafe-EyeDisease.h5
+
+  # --- INFRASTRUCTURE ---
+  proxy:
+    build: ./services/proxy
+    restart: unless-stopped
+    depends_on: [api]
+    environment:
+      - HOSTNAME=api
+      - DOMAIN_NAME
+    ports:
+      - 443:443
+
+  rabbitmq:
+    image: rabbitmq:3-alpine
+    restart: unless-stopped
+    volumes:
+      - ./volumes/rabbitmq/data:/var/lib/rabbitmq/
+      - ./volumes/rabbitmq/log:/var/log/rabbitmq/
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
