@@ -2,6 +2,7 @@ services:
   # --- INSTANCE ---
   api:
     build: ./services/sightsafe-api
+    restart: unless-stopped
     depends_on:
       rabbitmq: { condition: service_healthy }
     environment:
@@ -13,6 +14,7 @@ services:
 
   worker:
     build: ./services/sightsafe-worker
+    restart: unless-stopped
     environment:
       - AMQP_URI=amqp://rabbitmq:5672//
     depends_on:
@@ -23,6 +25,7 @@ services:
   # --- INFRASTRUCTURE ---
   proxy:
     build: ./services/proxy
+    restart: unless-stopped
     depends_on: [api]
     environment:
       - HOSTNAME=api
@@ -32,6 +35,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-alpine
+    restart: unless-stopped
     volumes:
       - ./volumes/rabbitmq/data:/var/lib/rabbitmq/
       - ./volumes/rabbitmq/log:/var/log/rabbitmq/
